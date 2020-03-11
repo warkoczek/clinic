@@ -16,7 +16,7 @@ public class Doctor {
 
     private Address address;
 
-    private PersonalData personalData;
+    private PII PII;
 
 
     public String getUsername() {
@@ -75,11 +75,11 @@ public class Doctor {
         this.address = address;
     }
 
-    public PersonalData getPersonalData() {
-        return personalData;
+    public PII getPII() {
+        return PII;
     }
 
-    public void setPersonalData(PersonalData personalData) {
-        this.personalData = personalData;
+    public void setPII(PII PII) {
+        this.PII = PII;
     }
 }

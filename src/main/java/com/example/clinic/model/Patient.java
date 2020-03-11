@@ -1,9 +1,14 @@
 package com.example.clinic.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.Objects;
 
+@Entity
 public class Patient {
 
+    @Id
     private String username;
 
     private String password;
@@ -12,11 +17,14 @@ public class Patient {
 
     private String lastName;
 
+    @OneToOne
     private Role role;
 
+    @OneToOne
     private Address address;
 
-    private PersonalData personalData;
+    @OneToOne
+    private PII pii;
 
     public String getUsername() {
         return username;
@@ -66,12 +74,12 @@ public class Patient {
         this.address = address;
     }
 
-    public PersonalData getPersonalData() {
-        return personalData;
+    public PII getPII() {
+        return pii;
     }
 
-    public void setPersonalData(PersonalData personalData) {
-        this.personalData = personalData;
+    public void setPII(PII PII) {
+        this.pii = pii;
     }
 
     @Override
@@ -85,11 +93,11 @@ public class Patient {
                 Objects.equals(lastName, patient.lastName) &&
                 Objects.equals(role, patient.role) &&
                 Objects.equals(address, patient.address) &&
-                Objects.equals(personalData, patient.personalData);
+                Objects.equals(pii, patient.pii);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, firstName, lastName, role, address, personalData);
+        return Objects.hash(username, password, firstName, lastName, role, address, pii);
     }
 }
