@@ -76,6 +76,20 @@ class PatientServiceTest {
         Assert.assertEquals(expectedSize,actualSize);
         assertThat(actualPatient.isEmpty());
     }
+    //Postman update shows null for pii
+    @Test
+    public void updatePatientShouldReturnUpdatedLastNameMalickiForPatientWithUsernameGrek(){
+
+        //given
+        Patient newPatient = new Patient("grek", "yty", "Grzegorz", "Malicki", null, null, null);
+        String expectedLastName = "Malicki";
+
+        //when
+        Patient updatedPatient = sut.updatePatient(newPatient);
+
+        //then
+        Assert.assertEquals(expectedLastName, updatedPatient.getLastName());
+    }
 
 
 }

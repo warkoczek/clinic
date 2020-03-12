@@ -1,9 +1,6 @@
 package com.example.clinic.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -24,7 +21,8 @@ public class Patient {
     @OneToOne(targetEntity = Address.class)
     private Address address;
 
-    @OneToOne(targetEntity = PII.class)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(updatable = true)
     private PII pii;
 
     public Patient() {

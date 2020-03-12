@@ -41,6 +41,11 @@ public class PatientController {
         return new ResponseEntity<>(patientService.addPatient(patient), HttpStatus.CREATED);
     }
 
+    @PutMapping(value = "patients/update", consumes = "application/json")
+    public ResponseEntity<Patient> updatePatient(@RequestBody Patient patient){
+        return new ResponseEntity<>(patientService.updatePatient(patient), HttpStatus.CREATED);
+    }
+
     @DeleteMapping(value = "/patients/delete/{username}")
     public ResponseEntity<Void> deletePatient(@PathVariable String username){
         patientService.removePatientByUsername(username);

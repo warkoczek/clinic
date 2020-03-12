@@ -1,6 +1,7 @@
 package com.example.clinic.service;
 
 import com.example.clinic.exception.DuplicateUsernameException;
+import com.example.clinic.exception.PatientNotFoundException;
 import com.example.clinic.model.Patient;
 import com.example.clinic.repository.PatientRepository;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,14 @@ public class PatientService  {
 
     public void removePatientByUsername(String username) {
         patientRepository.deleteById(username);
+    }
+
+    public Patient updatePatient(Patient patient) {
+
+        Patient patientToUpdate = patientRepository.findPatientByUsername(patient.getUsername())
+                .orElseThrow(()-> new PatientNotFoundException("No such a patient exists"));
+        patientRepository.delete(patientToUpdate);
+        patientRepository.save(patient);
+        return patient;
     }
 }
