@@ -13,7 +13,7 @@ public class Role {
 
     @Id
     @GeneratedValue(generator = "Role_Seq")
-    @SequenceGenerator(name = "Role_Seq", sequenceName = "role_seq", allocationSize = 50)
+    @SequenceGenerator(name = "Role_Seq", sequenceName = "role_seq", allocationSize = 1)
     private Long id;
 
     private String authority;
