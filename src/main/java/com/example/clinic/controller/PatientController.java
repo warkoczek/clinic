@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.ResponseEntity.noContent;
+
 @RestController
 public class PatientController {
 
@@ -37,5 +39,11 @@ public class PatientController {
     @PostMapping(value = "/patients/add", consumes = "application/json")
     public ResponseEntity<String> submitPatient(@RequestBody Patient patient){
         return new ResponseEntity<>(patientService.addPatient(patient), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/patients/delete/{username}")
+    public ResponseEntity<Void> deletePatient(@PathVariable String username){
+        patientService.removePatientByUsername(username);
+        return noContent().build();
     }
 }

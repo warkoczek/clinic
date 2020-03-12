@@ -58,4 +58,24 @@ class PatientServiceTest {
         Assert.assertEquals(expectedSize,actualSize);
         assertThat(actualPatient.isPresent());
     }
+
+    @Test
+    public void removePatientByUsernameShouldReturnIsEmptyTrueAfterDeletingPatient(){
+
+        //given
+        Patient patient = new Patient("aro", "kazee", "Arkadiusz", "Kazmierczak", null, null, null);
+
+        int expectedSize = 3;
+        //when
+        sut.addPatient(patient);
+        sut.removePatientByUsername(patient.getUsername());
+        int actualSize = sut.retrieveAllPatients().size();
+        Optional<Patient> actualPatient = sut.retrievePatientByUsername(patient.getUsername());
+
+        //then
+        Assert.assertEquals(expectedSize,actualSize);
+        assertThat(actualPatient.isEmpty());
+    }
+
+
 }

@@ -43,4 +43,8 @@ public class PatientService  {
     private void throwDuplicateUsernameException(String username) {
         throw new DuplicateUsernameException("Patient with username " + username + " already exists");
     }
+
+    public void removePatientByUsername(String username) {
+        patientRepository.deleteById(username);
+    }
 }
