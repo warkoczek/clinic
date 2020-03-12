@@ -2,10 +2,9 @@ package com.example.clinic.controller;
 
 import com.example.clinic.model.Patient;
 import com.example.clinic.service.PatientService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,5 +32,10 @@ public class PatientController {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(patient.get());
+    }
+
+    @PostMapping(value = "/patients/add", consumes = "application/json")
+    public ResponseEntity<String> submitPatient(@RequestBody Patient patient){
+        return new ResponseEntity<>(patientService.addPatient(patient), HttpStatus.CREATED);
     }
 }

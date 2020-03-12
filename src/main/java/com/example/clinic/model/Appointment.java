@@ -4,6 +4,7 @@ package com.example.clinic.model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+
 public class Appointment {
 
     private Long id;

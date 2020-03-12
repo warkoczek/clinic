@@ -18,5 +18,11 @@ public class Role {
 
     private String authority;
 
+    public Role(){}
+
+    public Role(String authority){
+        this.authority=authority;
+    }
+
 
 }

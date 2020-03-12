@@ -2,6 +2,7 @@ package com.example.clinic.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.util.Objects;
 
@@ -17,14 +18,26 @@ public class Patient {
 
     private String lastName;
 
-    @OneToOne
+    @OneToOne(targetEntity = Role.class)
     private Role role;
 
-    @OneToOne
+    @OneToOne(targetEntity = Address.class)
     private Address address;
 
-    @OneToOne
+    @OneToOne(targetEntity = PII.class)
     private PII pii;
+
+    public Patient() {
+    }
+    public Patient(String username, String password, String firstName, String lastName, Role role, Address address, PII pii){
+        this.username=username;
+        this.password=password;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.role=role;
+        this.address=address;
+        this.pii=pii;
+    }
 
     public String getUsername() {
         return username;

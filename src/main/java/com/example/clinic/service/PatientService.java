@@ -1,12 +1,12 @@
 package com.example.clinic.service;
 
+import com.example.clinic.exception.DuplicateUsernameException;
 import com.example.clinic.model.Patient;
 import com.example.clinic.repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class PatientService  {
@@ -29,6 +29,18 @@ public class PatientService  {
     }
 
 
+    public String addPatient(Patient patient) {
 
+         patientRepository.findPatientByUsername(patient.getUsername())
+                .ifPresent( patient1 -> throwDuplicateUsernameException(patient.getUsername()));
 
+        patientRepository.save(patient);
+
+        return patient.getUsername();
+
+    }
+
+    private void throwDuplicateUsernameException(String username) {
+        throw new DuplicateUsernameException("Patient with username " + username + " already exists");
+    }
 }

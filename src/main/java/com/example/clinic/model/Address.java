@@ -13,7 +13,7 @@ public class Address {
 
     @Id
     @GeneratedValue(generator = "addressSeq")
-    @SequenceGenerator(name = "addressSeq", sequenceName = "address_seq", allocationSize = 50)
+    @SequenceGenerator(name = "addressSeq", sequenceName = "address_seq", allocationSize = 1)
     private Long id;
 
     private String street;
@@ -21,4 +21,15 @@ public class Address {
     private String postCode;
     private String city;
     private String country;
+
+    public Address() {
+    }
+
+    public Address(String street, String houseNumber, String postCode, String city, String country){
+        this.street=street;
+        this.houseNumber=houseNumber;
+        this.postCode=postCode;
+        this.city=city;
+        this.country=country;
+    }
 }
