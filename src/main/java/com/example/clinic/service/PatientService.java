@@ -2,8 +2,12 @@ package com.example.clinic.service;
 
 import com.example.clinic.exception.DuplicateUsernameException;
 import com.example.clinic.exception.PatientNotFoundException;
+import com.example.clinic.model.Address;
+import com.example.clinic.model.AddressDTO;
 import com.example.clinic.model.Patient;
 import com.example.clinic.repository.PatientRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,5 +60,18 @@ public class PatientService  {
         patientRepository.delete(patientToUpdate);
         patientRepository.save(patient);
         return patient;
+    }
+
+    public Optional<AddressDTO> retrieveAddressByPatientId(String username){
+         Optional<Patient> patientByUsername = patientRepository.findPatientByUsername(username);
+        if(patientByUsername.isPresent()) {
+            return Optional.ofNullable(convertAddressToAddressDTO(patientByUsername.get().getAddress()));
+        }
+        return Optional.empty();
+    }
+    private AddressDTO convertAddressToAddressDTO(Address address){
+        ModelMapper modelMapper = new ModelMapper();
+
+        return modelMapper.map(address, AddressDTO.class);
     }
 }

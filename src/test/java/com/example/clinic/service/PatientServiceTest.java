@@ -91,7 +91,20 @@ class PatientServiceTest {
         Assert.assertEquals(expectedLastName, updatedPatient.getLastName());
     }
 
+    @Test
+    public void getAddressByPatientIdShouldReturnCityGnieznoForPatientUsernameZyga(){
 
+        //given
+        String username = "zyga";
+        String expectedCity = "Gniezno";
+
+        //when
+        String actualCity = sut.retrievePatientByUsername(username).get().getAddress().getCity();
+
+        //then
+        Assert.assertEquals(expectedCity, actualCity);
+
+    }
 
 
 }
