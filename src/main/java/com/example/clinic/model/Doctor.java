@@ -1,7 +1,16 @@
 package com.example.clinic.model;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+
+import javax.persistence.*;
+
+@AllArgsConstructor
+@EqualsAndHashCode
+@Entity
 public class Doctor {
 
+    @Id
     private String username;
 
     private String password;
@@ -10,13 +19,20 @@ public class Doctor {
 
     private String lastName;
 
+    @ManyToOne(targetEntity = Role.class)
     private Role role;
 
+    @Enumerated(value = EnumType.STRING)
     private Specialization specialization;
 
+    @OneToOne(targetEntity = Address.class, cascade = CascadeType.ALL)
     private Address address;
 
+    @OneToOne(targetEntity = PII.class, cascade = CascadeType.ALL)
     private PII PII;
+
+    public Doctor() {
+    }
 
 
     public String getUsername() {

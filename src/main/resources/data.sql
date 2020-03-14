@@ -9,9 +9,19 @@ insert into ADDRESS (id, street, house_Number, post_Code, city, country)values (
 insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Gdańska', '12', '20300', 'Bydgoszcz', 'Polen');
 insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Katowicka', '11', '30400', 'Gniezno', 'Polen');
 
+insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Wirusowa', '4', '30567', 'Leszno', 'Polen');
+insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Schtrasse', '2', '33400', 'Hamburg', 'Deutschland');
+insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Poznańska', '11', '30400', 'Katowice', 'Polen');
+insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Orzechowa', '5', '88560', 'Wroclaw', 'Polen');
+
 insert into PII (id_Number, phone_Number, email_Address) values ('80121289900', '+48600435690', 'jurek.molenda@wp.pl');
 insert into PII (id_Number, phone_Number, email_Address) values ('60111282930', '+48543678982', 'grzegorz.waliszewski@wp.pl');
 insert into PII (id_Number, phone_Number, email_Address) values ('50021289930', '+48793456765', 'zygmunt.wiburski@wp.pl');
+
+insert into PII (id_Number, phone_Number, email_Address) values ('40061289930', '+48793456761', 'ffff.wi@wp.pl');
+insert into PII (id_Number, phone_Number, email_Address) values ('32031289930', '+48793456763', 'zygmunt.oooi@wp.pl');
+insert into PII (id_Number, phone_Number, email_Address) values ('50041189930', '+48793456764', 'munt.wmmm@wp.pl');
+insert into PII (id_Number, phone_Number, email_Address) values ('79041189930', '+48793456740', 'karol.ugin@wp.pl');
 
 
 insert into PATIENT (username, password, first_Name, last_Name, role_id, address_id, pii_id_Number)
@@ -20,5 +30,17 @@ insert into PATIENT (username, password, first_Name, last_Name, role_id, address
 values ('grek', 'yty', 'Grzegorz', 'Waliszewski', 1, 2, '60111282930');
 insert into PATIENT (username, password, first_Name, last_Name, role_id, address_id, pii_id_Number)
 values ('zyga', 'warw', 'Zygmunt', 'Wiburski', 1, 3, '50021289930');
+
+
+insert into DOCTOR (username, password, first_Name, last_Name, role_id,specialization, address_id, pii_id_Number)
+values ('bogi', 'ttt', 'Bogdan', 'Górski', 2, 'PEDIATRICIAN', 4, '40061289930');
+insert into DOCTOR (username, password, first_Name, last_Name, role_id,specialization, address_id, pii_id_Number)
+values ('olek', 'eee', 'Aleksander', 'Witucki', 2, 'LARYNGOLOGIST',5, '32031289930');
+insert into DOCTOR (username, password, first_Name, last_Name, role_id,specialization, address_id, pii_id_Number)
+ values ('krys', 'tot', 'Krzysztof', 'Kolecki', 2,'UROLOGIST', 6, '50041189930');
+insert into DOCTOR (username, password, first_Name, last_Name, role_id,specialization, address_id, pii_id_Number)
+values ('mario', 'mmmww', 'Karol', 'Uginski', 2,'UROLOGIST', 7, '79041189930');
+
+
 
 commit;

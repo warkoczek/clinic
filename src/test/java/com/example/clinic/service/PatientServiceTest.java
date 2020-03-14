@@ -1,11 +1,9 @@
 package com.example.clinic.service;
 
-import com.example.clinic.model.Address;
-import com.example.clinic.model.PII;
 import com.example.clinic.model.Patient;
 
 
-import com.example.clinic.model.Role;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
