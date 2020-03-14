@@ -1,5 +1,6 @@
 package com.example.clinic.model;
 
+
 public enum Specialization {
 
     NEUROLOGIST, UROLOGIST, DERMATOLOGIST

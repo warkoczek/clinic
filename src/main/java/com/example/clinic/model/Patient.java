@@ -15,13 +15,13 @@ public class Patient {
 
     private String lastName;
 
-    @OneToOne(targetEntity = Role.class)
+    @ManyToOne(targetEntity = Role.class)
     private Role role;
 
-    @OneToOne(targetEntity = Address.class)
+    @OneToOne(targetEntity = Address.class, cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = PII.class, cascade = CascadeType.ALL)
     @JoinColumn(updatable = true)
     private PII pii;
 
