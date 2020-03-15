@@ -1,17 +1,42 @@
 package com.example.clinic.model;
 
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-
+@Entity
 public class Appointment {
 
+    @Id
+    @GeneratedValue(generator = "appointmentSeq")
+    @SequenceGenerator(name = "appointmentSeq", sequenceName = "appointment_Seq", allocationSize = 1)
     private Long id;
+
+    @ManyToOne(targetEntity = Patient.class)
     private Patient patient;
+
+    @ManyToOne(targetEntity = Doctor.class)
     private Doctor doctor;
+
     private LocalDateTime appointmentDate;
+
     private String description;
+
+    public Appointment() {
+    }
+
+    public Appointment(Doctor doctor, LocalDateTime appointmentDate){
+        this.doctor=doctor;
+        this.appointmentDate=appointmentDate;
+    }
+
+    public Appointment(Patient patient, Doctor doctor, LocalDateTime appointmentDate, String description){
+        this.patient=patient;
+        this.doctor=doctor;
+        this.appointmentDate=appointmentDate;
+        this.description=description;
+    }
 
     public Long getId() {
         return id;

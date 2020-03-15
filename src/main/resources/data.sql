@@ -41,6 +41,12 @@ insert into DOCTOR (username, password, first_Name, last_Name, role_id,specializ
 insert into DOCTOR (username, password, first_Name, last_Name, role_id,specialization, address_id, pii_id_Number)
 values ('mario', 'mmmww', 'Karol', 'Uginski', 2,'UROLOGIST', 7, '79041189930');
 
+insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, description) values (nextval('appointment_Seq'), 'zyga', 'mario', '2020-04-04 15:30:00', 'prostate control');
+insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, description) values (nextval('appointment_Seq'), 'grek', 'krys', '2020-05-04 15:00:00', 'prostate');
 
+insert into APPOINTMENT (id, doctor_username, appointment_Date) values (nextval('appointment_Seq'), 'olek', '2020-06-04 14:00:00');
+insert into APPOINTMENT (id, doctor_username, appointment_Date) values (nextval('appointment_Seq'), 'olek', '2020-06-04 14:30:00');
+insert into APPOINTMENT (id, doctor_username, appointment_Date) values (nextval('appointment_Seq'), 'olek', '2020-06-04 15:00:00');
+insert into APPOINTMENT (id, doctor_username, appointment_Date) values (nextval('appointment_Seq'), 'olek', '2020-06-04 15:30:00');
 
 commit;
