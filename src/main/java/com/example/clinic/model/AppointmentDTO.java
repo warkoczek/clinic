@@ -1,6 +1,7 @@
 package com.example.clinic.model;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class AppointmentDTO {
@@ -11,12 +12,12 @@ public class AppointmentDTO {
 
     private LocalDateTime unTill;
 
-    private String duration;
+    private int duration;
 
     public AppointmentDTO() {
     }
 
-    public AppointmentDTO(String doctorUsername, LocalDateTime from, LocalDateTime unTill, String duration) {
+    public AppointmentDTO(String doctorUsername, LocalDateTime from, LocalDateTime unTill, int duration) {
         this.doctorUsername = doctorUsername;
         this.from = from;
         this.unTill = unTill;
@@ -47,11 +48,11 @@ public class AppointmentDTO {
         this.unTill = unTill;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

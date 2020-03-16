@@ -1,11 +1,10 @@
 package com.example.clinic.controller;
 
 import com.example.clinic.model.Appointment;
+import com.example.clinic.model.AppointmentDTO;
 import com.example.clinic.service.AppointmentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,5 +31,10 @@ public class AppointmentController {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(optionalAppointment.get());
+    }
+
+    @PostMapping(value = "/appointments/add", consumes = "application/json")
+    public List<Appointment> addAvailableAppointments(@RequestBody AppointmentDTO appointmentDto){
+        return appointmentService.addAvailableAppointments(appointmentDto);
     }
 }
