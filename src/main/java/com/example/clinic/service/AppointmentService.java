@@ -2,6 +2,7 @@ package com.example.clinic.service;
 
 import com.example.clinic.model.Appointment;
 import com.example.clinic.model.AppointmentDTO;
+import com.example.clinic.model.AvailableAppointmentDTO;
 import com.example.clinic.model.Doctor;
 import com.example.clinic.model.dto.DtoToEntity;
 import com.example.clinic.repository.AppointmentRepository;
@@ -10,9 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentService{
@@ -32,6 +32,23 @@ public class AppointmentService{
     public Optional<Appointment> showAppointmentById(Long appointmentId){
 
         return appointmentRepository.findAppointmentById(appointmentId);
+    }
+
+    public List<AvailableAppointmentDTO> showAvailableAppointmentsByDoctorId(String username){
+
+         List<Appointment> appointments = appointmentRepository.findAppointmentsByDoctor_UsernameAndPatientIsNull(username);
+         List<AvailableAppointmentDTO> availableAppointmentDTO = convertToDTOSet(appointments);
+        return  availableAppointmentDTO.stream()
+                 .sorted(Comparator.comparing(AvailableAppointmentDTO::getAppointmentDate))
+                 .collect(Collectors.toList());
+    }
+
+    private List<AvailableAppointmentDTO> convertToDTOSet(List<Appointment> appointments){
+        ModelMapper modelMapper = new ModelMapper();
+        return appointments.stream()
+                .map(appointment -> modelMapper.map(appointment,AvailableAppointmentDTO.class))
+                .collect(Collectors.toList());
+
     }
 
     public List<Appointment> addAvailableAppointments(AppointmentDTO dto){
