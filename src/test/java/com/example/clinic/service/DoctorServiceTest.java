@@ -37,11 +37,11 @@ class DoctorServiceTest {
     }
 
     @Test
-    void retrieveDoctorBySpecializationShouldReturnSetOfDoctorsWithSizeOneForUrologist(){
+    void retrieveDoctorBySpecializationShouldReturnSetOfDoctorsWithSize2ForUrologist(){
 
         //given
         Specialization specialization = Specialization.UROLOGIST;
-        int expectedSize = 1;
+        int expectedSize = 2;
 
         //when
         Set<DoctorDTO> actualDoctors = sut.retrieveDoctorsBySpecialization(specialization);

@@ -3,6 +3,7 @@ package com.example.clinic.service;
 
 import com.example.clinic.model.Appointment;
 import com.example.clinic.model.AppointmentDTO;
+import com.example.clinic.model.AvailableAppointmentDTO;
 import com.example.clinic.model.Doctor;
 import org.junit.Assert;
 
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,10 +44,10 @@ class AppointmentServiceTest {
     }
 
     @Test
-    public void showAppointmentByIdShouldReturnIsEmptyTrueForAppointmentId10(){
+    public void showAppointmentByIdShouldReturnIsEmptyTrueForAppointmentId100(){
 
         //given
-        Long appointmentId = 10L;
+        Long appointmentId = 100L;
         boolean expected = true;
         //when
         Optional<Appointment> actualAppointment = sut.showAppointmentById(appointmentId);
@@ -81,5 +83,23 @@ class AppointmentServiceTest {
 
         //then
         Assert.assertEquals(expectedListSize, actualListSize);
+    }
+
+    @Test
+    void showAvailableAppointmentsByDoctorIdShouldReturnTwoAppointmentDatesForDoctorBogi() {
+
+        //given
+        String username = "bogi";
+        int expectedListSize = 2;
+        LocalDateTime expectedEarliestAppointmentDate = LocalDateTime.of(2020,07,22,13,30,00);
+
+        //when
+        int actualListSize = sut.showAvailableAppointmentsByDoctorId(username).size();
+        LocalDateTime actualAppointmentDates = sut.showAvailableAppointmentsByDoctorId(username).get(0).getAppointmentDate();
+
+        //then
+        Assert.assertEquals(expectedListSize,actualListSize);
+        Assert.assertEquals(expectedEarliestAppointmentDate,actualAppointmentDates);
+
     }
 }

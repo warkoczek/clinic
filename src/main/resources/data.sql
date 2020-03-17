@@ -49,4 +49,9 @@ insert into APPOINTMENT (id, doctor_username, appointment_Date) values (nextval(
 insert into APPOINTMENT (id, doctor_username, appointment_Date) values (nextval('appointment_Seq'), 'olek', '2020-06-04 15:00:00');
 insert into APPOINTMENT (id, doctor_username, appointment_Date) values (nextval('appointment_Seq'), 'olek', '2020-06-04 15:30:00');
 
+insert into APPOINTMENT (id, doctor_username, appointment_Date) values (nextval('appointment_Seq'), 'bogi', '2020-07-22 16:30:00');
+insert into APPOINTMENT (id, doctor_username, appointment_Date) values (nextval('appointment_Seq'), 'bogi', '2020-07-22 13:30:00');
+
+
+
 commit;
