@@ -1,6 +1,4 @@
-package com.example.clinic.model;
-
-import lombok.Data;
+package com.example.clinic.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

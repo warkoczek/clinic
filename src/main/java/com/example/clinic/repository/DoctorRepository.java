@@ -1,7 +1,7 @@
 package com.example.clinic.repository;
 
-import com.example.clinic.model.Doctor;
-import com.example.clinic.model.Specialization;
+import com.example.clinic.domain.Doctor;
+import com.example.clinic.domain.Specialization;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

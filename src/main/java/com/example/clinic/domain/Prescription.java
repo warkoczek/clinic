@@ -1,5 +1,7 @@
-package com.example.clinic.model;
+package com.example.clinic.domain;
 
+import com.example.clinic.domain.Doctor;
+import com.example.clinic.domain.Patient;
 import lombok.Data;
 
 @Data

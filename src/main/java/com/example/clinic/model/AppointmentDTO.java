@@ -12,15 +12,18 @@ public class AppointmentDTO {
 
     private LocalDateTime unTill;
 
+    private boolean isCyclic;
+
     private int duration;
 
     public AppointmentDTO() {
     }
 
-    public AppointmentDTO(String doctorUsername, LocalDateTime from, LocalDateTime unTill, int duration) {
+    public AppointmentDTO(String doctorUsername, LocalDateTime from, LocalDateTime unTill, boolean isCyclic,  int duration) {
         this.doctorUsername = doctorUsername;
         this.from = from;
         this.unTill = unTill;
+        this.isCyclic = isCyclic;
         this.duration = duration;
     }
 
@@ -56,19 +59,28 @@ public class AppointmentDTO {
         this.duration = duration;
     }
 
+    public boolean isCyclic() {
+        return isCyclic;
+    }
+
+    public void setCyclic(boolean cyclic) {
+        isCyclic = cyclic;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AppointmentDTO that = (AppointmentDTO) o;
-        return Objects.equals(doctorUsername, that.doctorUsername) &&
+        return isCyclic == that.isCyclic &&
+                duration == that.duration &&
+                Objects.equals(doctorUsername, that.doctorUsername) &&
                 Objects.equals(from, that.from) &&
-                Objects.equals(unTill, that.unTill) &&
-                Objects.equals(duration, that.duration);
+                Objects.equals(unTill, that.unTill);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(doctorUsername, from, unTill, duration);
+        return Objects.hash(doctorUsername, from, unTill, isCyclic, duration);
     }
 }
