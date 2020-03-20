@@ -3,6 +3,7 @@ package com.example.clinic.service;
 
 import com.example.clinic.domain.Appointment;
 import com.example.clinic.model.AppointmentDTO;
+import com.example.clinic.model.ReservedAppointmentDTO;
 import org.junit.Assert;
 
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -110,5 +112,19 @@ class AppointmentServiceTest {
         Assert.assertEquals(expectedListSize,actualListSize);
         Assert.assertEquals(expectedEarliestAppointmentDate,actualAppointmentDates);
 
+    }
+
+    @Test
+    void retrieveReservedAppointmentsByDoctorIdShouldReturnListSize1AndPatientLastNameWiburskiForDoctorUsernameMario(){
+        //given
+            String username = "mario";
+            int expectedListSize = 1;
+            String expectedPatientLastName = "Wiburski";
+        //when
+        List<ReservedAppointmentDTO> actualReservedAppointmentDTOList = sut.retrieveReservedAppointmentsByDoctorId(username);
+
+        //then
+        Assert.assertEquals(expectedListSize, actualReservedAppointmentDTOList.size());
+        Assert.assertEquals(expectedPatientLastName,actualReservedAppointmentDTOList.get(0).getPatientLastName());
     }
 }
