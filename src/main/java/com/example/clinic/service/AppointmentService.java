@@ -1,10 +1,8 @@
 package com.example.clinic.service;
 
-import com.example.clinic.model.Appointment;
-import com.example.clinic.model.AppointmentDTO;
-import com.example.clinic.model.AvailableAppointmentDTO;
-import com.example.clinic.model.Doctor;
-import com.example.clinic.model.dto.DtoToEntity;
+import com.example.clinic.domain.Appointment;
+import com.example.clinic.domain.Doctor;
+import com.example.clinic.model.*;
 import com.example.clinic.repository.AppointmentRepository;
 import com.example.clinic.repository.DoctorRepository;
 import org.modelmapper.ModelMapper;
@@ -29,21 +27,22 @@ public class AppointmentService{
         return appointmentRepository.findAll();
     }
 
-    public Optional<Appointment> showAppointmentById(Long appointmentId){
+    public Optional<Appointment> retrieveAppointmentById(Long appointmentId){
 
         return appointmentRepository.findAppointmentById(appointmentId);
     }
 
-    public List<AvailableAppointmentDTO> showAvailableAppointmentsByDoctorId(String username){
+
+    public List<AvailableAppointmentDTO> retrieveAvailableAppointmentsByDoctorId(String username){
 
          List<Appointment> appointments = appointmentRepository.findAppointmentsByDoctor_UsernameAndPatientIsNull(username);
-         List<AvailableAppointmentDTO> availableAppointmentDTO = convertToDTOSet(appointments);
-        return  availableAppointmentDTO.stream()
+         List<AvailableAppointmentDTO> availableAppointmentDTOList = convertToListOfDTOs(appointments);
+        return  availableAppointmentDTOList.stream()
                  .sorted(Comparator.comparing(AvailableAppointmentDTO::getAppointmentDate))
                  .collect(Collectors.toList());
     }
 
-    private List<AvailableAppointmentDTO> convertToDTOSet(List<Appointment> appointments){
+    private List<AvailableAppointmentDTO> convertToListOfDTOs(List<Appointment> appointments){
         ModelMapper modelMapper = new ModelMapper();
         return appointments.stream()
                 .map(appointment -> modelMapper.map(appointment,AvailableAppointmentDTO.class))
@@ -51,10 +50,43 @@ public class AppointmentService{
 
     }
 
+    public List<ReservedAppointmentDTO> retrieveReservedAppointmentsByDoctorId(String username){
+
+        List<Appointment> appointments = appointmentRepository.findAppointmentsByDoctor_UsernameAndPatientIsNotNull(username);
+        List<ReservedAppointmentDTO> reservedAppointmentDTOList = convertToListOfReservedAppointmentsDTO(appointments);
+        return reservedAppointmentDTOList.stream()
+                .sorted(Comparator.comparing(ReservedAppointmentDTO::getAppointmentDate))
+                .collect(Collectors.toList());
+
+    }
+
+    private List<ReservedAppointmentDTO> convertToListOfReservedAppointmentsDTO(List<Appointment> appointments) {
+        ModelMapper modelMapper = new ModelMapper();
+        return appointments.stream()
+                .map(appointment -> modelMapper.map(appointment, ReservedAppointmentDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
     public List<Appointment> addAvailableAppointments(AppointmentDTO dto){
 
         return appointmentRepository.saveAll(convertToEntity(dto));
     }
+
+   /* public List<Appointment> getListOfAvailableCyclicAppointments(AppointmentDTO dto){
+
+        List<Appointment> allAppointments = new ArrayList<>();
+            LocalDateTime nextDay = dto.getFrom();
+        if(dto.isCyclic()){
+            while(nextDay.isBefore(nextDay.plusDays(22))) {
+                 allAppointments.addAll(convertToEntity(dto));
+                 nextDay = nextDay.plusDays(7);
+            }
+        }else {
+            allAppointments = convertToEntity(dto);
+        }
+        return allAppointments;
+    }*/
 
     public List<Appointment> convertToEntity(AppointmentDTO dto) {
 

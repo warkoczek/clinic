@@ -1,4 +1,4 @@
-package com.example.clinic.model;
+package com.example.clinic.domain;
 
 
 public enum Specialization {

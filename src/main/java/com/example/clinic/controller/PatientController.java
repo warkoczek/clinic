@@ -1,9 +1,7 @@
 package com.example.clinic.controller;
 
-import com.example.clinic.exception.PatientNotFoundException;
-import com.example.clinic.model.Address;
 import com.example.clinic.model.AddressDTO;
-import com.example.clinic.model.Patient;
+import com.example.clinic.domain.Patient;
 import com.example.clinic.service.PatientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

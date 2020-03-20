@@ -1,4 +1,4 @@
-package com.example.clinic.model;
+package com.example.clinic.domain;
 
 import javax.persistence.*;
 import java.util.Objects;

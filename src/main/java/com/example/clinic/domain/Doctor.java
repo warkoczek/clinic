@@ -1,4 +1,4 @@
-package com.example.clinic.model;
+package com.example.clinic.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -28,7 +28,7 @@ public class Doctor {
     @OneToOne(targetEntity = Address.class, cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToOne(targetEntity = PII.class, cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = com.example.clinic.domain.PII.class, cascade = CascadeType.ALL)
     private PII PII;
 
     public Doctor() {

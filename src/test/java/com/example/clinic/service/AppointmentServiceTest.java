@@ -1,10 +1,8 @@
 package com.example.clinic.service;
 
 
-import com.example.clinic.model.Appointment;
+import com.example.clinic.domain.Appointment;
 import com.example.clinic.model.AppointmentDTO;
-import com.example.clinic.model.AvailableAppointmentDTO;
-import com.example.clinic.model.Doctor;
 import org.junit.Assert;
 
 import org.junit.jupiter.api.Test;
@@ -15,7 +13,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,7 +34,7 @@ class AppointmentServiceTest {
         LocalTime expectedAppointmentTime = LocalTime.of(15,00,00);
 
         //when
-         LocalTime actualAppointmentTime = sut.showAppointmentById(appointmentId).get().getAppointmentDate().toLocalTime();
+         LocalTime actualAppointmentTime = sut.retrieveAppointmentById(appointmentId).get().getAppointmentDate().toLocalTime();
 
          //then
         Assert.assertEquals(expectedAppointmentTime,actualAppointmentTime);
@@ -50,7 +47,7 @@ class AppointmentServiceTest {
         Long appointmentId = 100L;
         boolean expected = true;
         //when
-        Optional<Appointment> actualAppointment = sut.showAppointmentById(appointmentId);
+        Optional<Appointment> actualAppointment = sut.retrieveAppointmentById(appointmentId);
 
         //then
         assertThat(actualAppointment.isEmpty());
@@ -72,7 +69,7 @@ class AppointmentServiceTest {
 
         */
         AppointmentDTO appointmentDto = new AppointmentDTO(doctorUsername, LocalDateTime.of(2020,04,04,14,00,00),
-                LocalDateTime.of(2020,04,04,16,00,00), 30);
+                LocalDateTime.of(2020,04,04,16,00,00), true, 30);
 
         int expectedListSize = 4;
 
@@ -84,6 +81,18 @@ class AppointmentServiceTest {
         //then
         Assert.assertEquals(expectedListSize, actualListSize);
     }
+    /*@Test
+    void getListOfAvailableCyclicAppointmentsShouldReturnListSize8ForGivenAppointmentDTO(){
+        //given
+        String doctorUsername = doctorService.retrieveDoctorByUsername("mario").get().getUsername();
+        AppointmentDTO appointmentDTO = new AppointmentDTO(doctorUsername, LocalDateTime.of(2020,04,04,14,00,00),
+                LocalDateTime.of(2020,04,04,15,00,00), true, 30);
+        int expectedListSize = 8;
+        //when
+        List<Appointment> listOfAvailableCyclicAppointments = sut.addAvailableAppointments(appointmentDTO);
+        //then
+        Assert.assertEquals(expectedListSize,listOfAvailableCyclicAppointments.size());
+    }*/
 
     @Test
     void showAvailableAppointmentsByDoctorIdShouldReturnTwoAppointmentDatesForDoctorBogi() {
@@ -94,8 +103,8 @@ class AppointmentServiceTest {
         LocalDateTime expectedEarliestAppointmentDate = LocalDateTime.of(2020,07,22,13,30,00);
 
         //when
-        int actualListSize = sut.showAvailableAppointmentsByDoctorId(username).size();
-        LocalDateTime actualAppointmentDates = sut.showAvailableAppointmentsByDoctorId(username).get(0).getAppointmentDate();
+        int actualListSize = sut.retrieveAvailableAppointmentsByDoctorId(username).size();
+        LocalDateTime actualAppointmentDates = sut.retrieveAvailableAppointmentsByDoctorId(username).get(0).getAppointmentDate();
 
         //then
         Assert.assertEquals(expectedListSize,actualListSize);
