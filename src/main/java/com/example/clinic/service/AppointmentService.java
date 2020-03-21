@@ -60,6 +60,15 @@ public class AppointmentService{
 
     }
 
+    public List<ReservedAppointmentDTO> retrieveReservedAppointmentsByRoom(String doorNumber){
+
+        List<Appointment> appointments = appointmentRepository.findAppointmentsByRoom_DoorNumber(doorNumber);
+        return convertToListOfReservedAppointmentsDTO(appointments)
+                .stream().sorted(Comparator.comparing(ReservedAppointmentDTO::getAppointmentDate))
+                .collect((Collectors.toList()));
+
+    }
+
     private List<ReservedAppointmentDTO> convertToListOfReservedAppointmentsDTO(List<Appointment> appointments) {
         ModelMapper modelMapper = new ModelMapper();
         return appointments.stream()

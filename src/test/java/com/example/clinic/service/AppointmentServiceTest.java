@@ -119,12 +119,37 @@ class AppointmentServiceTest {
         //given
             String username = "mario";
             int expectedListSize = 1;
-            String expectedPatientLastName = "Wiburski";
+            String expectedPatientLastName = "Zygmunt";
         //when
         List<ReservedAppointmentDTO> actualReservedAppointmentDTOList = sut.retrieveReservedAppointmentsByDoctorId(username);
 
         //then
         Assert.assertEquals(expectedListSize, actualReservedAppointmentDTOList.size());
-        Assert.assertEquals(expectedPatientLastName,actualReservedAppointmentDTOList.get(0).getPatientLastName());
+        Assert.assertEquals(expectedPatientLastName,actualReservedAppointmentDTOList.get(0).getPatientFirstName());
+    }
+
+    @Test
+    void retrieveReservedAppointmentsByDoctorIdShouldReturnDoorNumber2ForDoctorUsernameMario(){
+        //given
+        String username = "mario";
+        String expectedDoorNumber = "4";
+
+        //when
+        String actualDoorNumber = sut.retrieveReservedAppointmentsByDoctorId(username).get(0).getRoomDoorNumber();
+        //then
+        Assert.assertEquals(expectedDoorNumber, actualDoorNumber);
+    }
+
+    @Test
+    void retrieveReservedAppointmentsByRoomShouldReturnListSize1ForRoomDoorNumber4() {
+
+        //given
+        String doorNumber = "4";
+        int expectedListSize = 1;
+        //when
+        List<ReservedAppointmentDTO> actualReservedAppointmentDTOList = sut.retrieveReservedAppointmentsByRoom(doorNumber);
+        //then
+        Assert.assertEquals(expectedListSize, actualReservedAppointmentDTOList.size());
+
     }
 }

@@ -12,8 +12,8 @@ import javax.persistence.SequenceGenerator;
 public class Role {
 
     @Id
-    @GeneratedValue(generator = "Role_Seq")
-    @SequenceGenerator(name = "Role_Seq", sequenceName = "role_seq", allocationSize = 1)
+    @GeneratedValue(generator = "roleSeq")
+    @SequenceGenerator(name = "roleSeq", sequenceName = "role_Seq", allocationSize = 1)
     private Long id;
 
     private String authority;

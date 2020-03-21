@@ -21,21 +21,26 @@ public class Appointment {
 
     private LocalDateTime appointmentDate;
 
+    @ManyToOne(targetEntity = Room.class)
+    private Room room;
+
     private String description;
 
     public Appointment() {
     }
 
-    public Appointment(Doctor doctor, LocalDateTime appointmentDate){
+    public Appointment(Doctor doctor, LocalDateTime appointmentDate, Room room){
         this.doctor=doctor;
         this.appointmentDate=appointmentDate;
+        this.room=room;
     }
 
-    public Appointment(Patient patient, Doctor doctor, LocalDateTime appointmentDate, String description){
+    public Appointment(Patient patient, Doctor doctor, LocalDateTime appointmentDate, Room room, String description){
         this.patient=patient;
         this.doctor=doctor;
         this.appointmentDate=appointmentDate;
         this.description=description;
+        this.room=room;
     }
 
     public Long getId() {
@@ -70,6 +75,14 @@ public class Appointment {
         this.appointmentDate = appointmentDate;
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -87,11 +100,12 @@ public class Appointment {
                 Objects.equals(patient, that.patient) &&
                 Objects.equals(doctor, that.doctor) &&
                 Objects.equals(appointmentDate, that.appointmentDate) &&
+                Objects.equals(room, that.room) &&
                 Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, patient, doctor, appointmentDate, description);
+        return Objects.hash(id, patient, doctor, appointmentDate, room, description);
     }
 }
