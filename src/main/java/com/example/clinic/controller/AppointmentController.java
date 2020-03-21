@@ -21,7 +21,7 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping(value = "/appointments", produces = "application/json")
+    @GetMapping(value = "", produces = "application/json")
     public List<Appointment> showAllAppointments(){
         return appointmentService.retrieveAllAppointments();
     }
@@ -29,14 +29,14 @@ public class AppointmentController {
     @GetMapping(value = "/appointment", produces = "application/json")
     public ResponseEntity<Appointment> showAppointmentById(@RequestParam(required = false) Long id){
         Optional<Appointment> optionalAppointment = appointmentService.retrieveAppointmentById(id);
-        if(!optionalAppointment.isPresent()){
+        if(optionalAppointment.isEmpty()){
             System.out.println("Appointment with id " + id + "not found");
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(optionalAppointment.get());
     }
 
-    @GetMapping(value = "/appointments/available/doctor", produces = "application/json")
+    @GetMapping(value = "/available/doctor", produces = "application/json")
     public List<AvailableAppointmentDTO> showAvailableAppointmentsByDoctorId(@RequestParam String username){
         return appointmentService.retrieveAvailableAppointmentsByDoctorId(username);
     }
@@ -46,7 +46,12 @@ public class AppointmentController {
         return appointmentService.retrieveReservedAppointmentsByDoctorId(username);
     }
 
-    @PostMapping(value = "/appointments/add", consumes = "application/json")
+    @GetMapping(value = "/reserved/room", produces = "application/json")
+    public List<ReservedAppointmentDTO> showReservedAppointmentsByRoom(@RequestParam String doorNumber){
+        return appointmentService.retrieveReservedAppointmentsByRoom(doorNumber);
+    }
+
+    @PostMapping(value = "/add", consumes = "application/json")
     public List<Appointment> addAvailableAppointments(@RequestBody AppointmentDTO appointmentDto){
         return appointmentService.addAvailableAppointments(appointmentDto);
     }
