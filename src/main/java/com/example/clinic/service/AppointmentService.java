@@ -8,6 +8,7 @@ import com.example.clinic.repository.DoctorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -75,6 +76,7 @@ public class AppointmentService{
                 .map(appointment -> modelMapper.map(appointment, ReservedAppointmentDTO.class))
                 .collect(Collectors.toList());
     }
+
 
 
     public List<Appointment> addAvailableAppointments(AppointmentDTO dto){
