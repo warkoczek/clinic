@@ -51,6 +51,7 @@ public class AppointmentController {
         return appointmentService.retrieveReservedAppointmentsByRoom(doorNumber);
     }
 
+
     @PostMapping(value = "/add", consumes = "application/json")
     public List<Appointment> addAvailableAppointments(@RequestBody AppointmentDTO appointmentDto){
         return appointmentService.addAvailableAppointments(appointmentDto);

@@ -29,7 +29,6 @@ insert into ROOM (id, door_Number, floor_Number) values (nextval('room_Seq'), '3
 insert into ROOM (id, door_Number, floor_Number) values (nextval('room_Seq'), '4', '2');
 
 
-
 insert into PATIENT (username, password, first_Name, last_Name, role_id, address_id, pii_id_Number)
  values ('juras', '123', 'Jerzy', 'Molenda', 1, 1, '80121289900');
 insert into PATIENT (username, password, first_Name, last_Name, role_id, address_id, pii_id_Number)
@@ -47,8 +46,13 @@ insert into DOCTOR (username, password, first_Name, last_Name, role_id,specializ
 insert into DOCTOR (username, password, first_Name, last_Name, role_id,specialization, address_id, pii_id_Number, room_id)
 values ('mario', 'mmmww', 'Karol', 'Uginski', 2,'UROLOGIST', 7, '79041189930',4);
 
-insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, room_id, description) values (nextval('appointment_Seq'), 'zyga', 'mario', '2020-04-04 15:30:00',4,  'prostate control');
-insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, room_id, description) values (nextval('appointment_Seq'), 'grek', 'krys', '2020-05-04 15:00:00',3,  'prostate');
+insert into PRESCRIPTION (id, patient_username, doctor_username, description) values (nextval('prescription_Seq'), 'zyga', 'mario', 'pain killer');
+insert into PRESCRIPTION (id, patient_username, doctor_username, description) values (nextval('prescription_Seq'), 'grek', 'krys', 'prostate');
+insert into PRESCRIPTION (id, patient_username, doctor_username, description) values (nextval('prescription_Seq'), 'grek', 'krys', 'cold');
+
+
+insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, room_id, description) values (nextval('appointment_Seq'), 'zyga', 'mario', '2020-03-21 15:30:00',4,  'prostate control');
+insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, room_id, description) values (nextval('appointment_Seq'), 'grek', 'krys', '2020-03-21 15:00:00',3,  'prostate');
 
 insert into APPOINTMENT (id, doctor_username, appointment_Date, room_id) values (nextval('appointment_Seq'), 'olek', '2020-06-04 14:00:00', 2);
 insert into APPOINTMENT (id, doctor_username, appointment_Date, room_id) values (nextval('appointment_Seq'), 'olek', '2020-06-04 14:30:00', 2);
@@ -57,7 +61,6 @@ insert into APPOINTMENT (id, doctor_username, appointment_Date, room_id) values 
 
 insert into APPOINTMENT (id, doctor_username, appointment_Date, room_id) values (nextval('appointment_Seq'), 'bogi', '2020-07-22 16:30:00', 1);
 insert into APPOINTMENT (id, doctor_username, appointment_Date, room_id) values (nextval('appointment_Seq'), 'bogi', '2020-07-22 13:30:00', 1);
-
 
 
 commit;

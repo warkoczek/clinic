@@ -4,6 +4,7 @@ package com.example.clinic.domain;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Appointment {
@@ -25,6 +26,8 @@ public class Appointment {
     private Room room;
 
     private String description;
+
+
 
     public Appointment() {
     }
