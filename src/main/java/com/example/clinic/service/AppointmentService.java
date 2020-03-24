@@ -130,4 +130,22 @@ public class AppointmentService{
         return doctorRepository.findDoctorByUsername(username).get();
 
     }
+
+
+    public List<Appointment> postponeReservedAppointmentsByDoctorId(String username){
+
+        List<Appointment> postponedAppointments = new ArrayList<>();
+
+         List<Appointment> appointmentsToPostpone = appointmentRepository.findAppointmentsByDoctor_UsernameAndPatientIsNotNull(username);
+
+             appointmentsToPostpone.stream()
+                .map(appointment -> {
+                     appointment.setAppointmentDate(appointment.getAppointmentDate().plusWeeks(2));
+                    return postponedAppointments.add(appointment);
+                })
+                .collect(Collectors.toList());
+
+        appointmentRepository.deleteAll(appointmentsToPostpone);
+       return appointmentRepository.saveAll(postponedAppointments);
+    }
 }
