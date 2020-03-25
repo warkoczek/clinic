@@ -51,6 +51,11 @@ public class AppointmentController {
         return appointmentService.retrieveReservedAppointmentsByRoom(doorNumber);
     }
 
+    @PutMapping(value = "/postpone/reserved/doctor", produces = "application/json")
+    public List<Appointment> showPostponedReservedAppointmentsByDoctorId(@RequestParam String username){
+        return appointmentService.postponeReservedAppointmentsByDoctorId(username);
+    }
+
 
     @PostMapping(value = "/add", consumes = "application/json")
     public List<Appointment> addAvailableAppointments(@RequestBody AppointmentDTO appointmentDto){
