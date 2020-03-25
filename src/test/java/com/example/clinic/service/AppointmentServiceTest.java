@@ -152,4 +152,17 @@ class AppointmentServiceTest {
         Assert.assertEquals(expectedListSize, actualReservedAppointmentDTOList.size());
 
     }
+
+    @Test
+    void postponeReservedAppointmentsByDoctorIdShouldReturnDate24AprilForReservedAppointmentWithDoctorMario(){
+        //given
+        String username = "mario";
+        LocalDateTime expectedPostponedDate = LocalDateTime.of(2020, 04, 04, 15, 30 ,00);
+        //when
+        List<Appointment> actualPostponedReservedAppointmentsByDoctorId = sut.postponeReservedAppointmentsByDoctorId(username);
+        //then
+        Assert.assertEquals(expectedPostponedDate, actualPostponedReservedAppointmentsByDoctorId.get(0).getAppointmentDate());
+
+    }
+
 }
