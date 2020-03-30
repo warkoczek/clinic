@@ -35,6 +35,10 @@ public class Doctor {
     @OneToOne(targetEntity = Room.class, cascade = CascadeType.PERSIST)
     private Room room;
 
+    public String getFullName(){
+        return getFirstName() + " " + getLastName();
+    }
+
 
 
 }
