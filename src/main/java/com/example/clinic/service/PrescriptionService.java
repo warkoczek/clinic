@@ -2,15 +2,12 @@ package com.example.clinic.service;
 
 import com.example.clinic.domain.Prescription;
 import com.example.clinic.model.PrescriptionDTO;
+import com.example.clinic.model.dto.PrescriptionDTOInterface;
 import com.example.clinic.repository.PrescriptionRepository;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
-import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -29,13 +26,17 @@ public class PrescriptionService {
     }
 
     public List<PrescriptionDTO> getPrescriptionsByPatient(String username){
-        return  convertPrescriptionsToSetOfPrescriptionDTO(username);
-    }
-
-    private List<PrescriptionDTO> convertPrescriptionsToSetOfPrescriptionDTO(String username){
 
         return prescriptionRepository.findPrescriptionsByPatient_Username(username).stream()
-                .map(prescription -> getPrescriptionTypeMap().map(prescription))
+                .map(prescription -> PrescriptionDTOInterface.getTypeMap().map(prescription))
+                .sorted(Comparator.comparing(PrescriptionDTO::getPrescriptionIssueDate))
+                .collect(Collectors.toList());
+    }
+
+    /*private List<PrescriptionDTO> convertPrescriptionsToListOfPrescriptionDTO(String username){
+
+        return prescriptionRepository.findPrescriptionsByPatient_Username(username).stream()
+                .map(prescription -> PrescriptionDTOInterface.getTypeMap().map(prescription))
                 .sorted(Comparator.comparing(PrescriptionDTO::getPrescriptionIssueDate))
                 .collect(Collectors.toList());
     }
@@ -56,7 +57,7 @@ public class PrescriptionService {
                 map().setDescription(source.getDescription());
             }
         };
-    }
+    }*/
 
     public Long addPrescription(Prescription prescription){
         prescriptionRepository.save(prescription);
