@@ -3,7 +3,7 @@ package com.example.clinic.service;
 import com.example.clinic.domain.Patient;
 
 
-import com.example.clinic.domain.Role;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

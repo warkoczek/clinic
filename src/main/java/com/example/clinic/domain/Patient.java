@@ -25,6 +25,11 @@ public class Patient {
     @JoinColumn(updatable = true)
     private PII pii;
 
+    public String getFullName(){
+        return getFirstName() + " " +getLastName();
+    }
+
+
     public Patient() {
     }
     public Patient(String username, String password, String firstName, String lastName, Role role, Address address, PII pii){
