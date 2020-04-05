@@ -8,10 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
+
 
 @RestController
-@RequestMapping("/prescriptions")
+@RequestMapping("/prescriptions/prescription")
 public class PrescriptionController {
 
     private final PrescriptionService prescriptionService;
@@ -20,7 +21,7 @@ public class PrescriptionController {
         this.prescriptionService = prescriptionService;
     }
 
-    @GetMapping(value = "", produces = "application/json")
+    @GetMapping(value = "/prescriptions", produces = "application/json")
     public List<Prescription> showAllPrescriptions(){
         return prescriptionService.showAllPrescriptions();
     }
@@ -29,8 +30,16 @@ public class PrescriptionController {
     public List<PrescriptionDTO> showAllPrescriptionsByPatient(@RequestParam String username){
         return prescriptionService.getPrescriptionsByPatient(username);
     }
+    @GetMapping(value = "", produces = "application/json")
+    public ResponseEntity<PrescriptionDTO> showPrescriptionById(@RequestParam Long id){
 
-    @PostMapping(value = "/prescription/add", consumes = "application/json")
+        Optional<PrescriptionDTO> prescription = prescriptionService.getPrescriptionById(id);
+
+        return prescription.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+
+    @PostMapping(value = "/add", consumes = "application/json")
     public ResponseEntity<Long> submitPrescription(@RequestBody Prescription prescription){
         return new ResponseEntity<>(prescriptionService.addPrescription(prescription), HttpStatus.CREATED);
     }

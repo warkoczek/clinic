@@ -27,6 +27,8 @@ public class Prescription {
 
     private Long prescriptionValidity;
 
+    private String isOngoing;
+
     private LocalDateTime medicineDispenseDate;
 
 
@@ -38,18 +40,26 @@ public class Prescription {
 
     private String description;
 
-    public Prescription(LocalDateTime prescriptionIssueDate, Long prescriptionValidity, Patient patient, Doctor doctor, String description) {
+    public Prescription(LocalDateTime prescriptionIssueDate, Long prescriptionValidity, String isOngoing
+            ,Patient patient, Doctor doctor, String description){
         this.prescriptionIssueDate=prescriptionIssueDate;
         this.prescriptionValidity=prescriptionValidity;
+        this.isOngoing=isOngoing;
         this.patient=patient;
         this.doctor=doctor;
         this.description=description;
     }
 
+    public boolean isPrescriptionOngoing(String isOngoing){
+        return isOngoing.equalsIgnoreCase("yes");
+    }
+    //if its less than 6months since IssueDate and medicineDispenseDate is null or is more than 6 months since lastDispenseDate for ongoing Prescription
     public boolean isPrescriptionValid(){
         LocalDateTime expiryDate = getPrescriptionIssueDate().plusMonths(prescriptionValidity);
+        LocalDateTime nextDispenseDate = getMedicineDispenseDate().plusMonths(prescriptionValidity);
 
-        return expiryDate.isAfter(LocalDateTime.now());
+        return (expiryDate.isAfter(LocalDateTime.now()) && getMedicineDispenseDate() == null)
+                || (nextDispenseDate.isBefore(LocalDateTime.now()) && isPrescriptionOngoing("yes"));
 
     }
 

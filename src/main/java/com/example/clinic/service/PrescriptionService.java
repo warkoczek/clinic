@@ -1,13 +1,16 @@
 package com.example.clinic.service;
 
 import com.example.clinic.domain.Prescription;
+import com.example.clinic.exception.PrescriptionNotFoundException;
 import com.example.clinic.model.PrescriptionDTO;
 import com.example.clinic.model.dto.PrescriptionDTOInterface;
 import com.example.clinic.repository.PrescriptionRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -25,6 +28,11 @@ public class PrescriptionService {
         return prescriptionRepository.findAll();
     }
 
+    public Optional<PrescriptionDTO> getPrescriptionById(Long id){
+        Optional<Prescription> prescription = prescriptionRepository.findPrescriptionById(id);
+        return prescription.map(value -> PrescriptionDTOInterface.getTypeMap().map(value));
+    }
+
     public List<PrescriptionDTO> getPrescriptionsByPatient(String username){
 
         return prescriptionRepository.findPrescriptionsByPatient_Username(username).stream()
@@ -33,31 +41,6 @@ public class PrescriptionService {
                 .collect(Collectors.toList());
     }
 
-    /*private List<PrescriptionDTO> convertPrescriptionsToListOfPrescriptionDTO(String username){
-
-        return prescriptionRepository.findPrescriptionsByPatient_Username(username).stream()
-                .map(prescription -> PrescriptionDTOInterface.getTypeMap().map(prescription))
-                .sorted(Comparator.comparing(PrescriptionDTO::getPrescriptionIssueDate))
-                .collect(Collectors.toList());
-    }
-    private TypeMap<Prescription, PrescriptionDTO> getPrescriptionTypeMap(){
-        ModelMapper modelMapper = new ModelMapper();
-        PropertyMap<Prescription, PrescriptionDTO> prescriptionMapper = getPrescriptionPropertyMap();
-        return modelMapper.addMappings(prescriptionMapper);
-    }
-
-    private PropertyMap<Prescription, PrescriptionDTO> getPrescriptionPropertyMap(){
-        return new PropertyMap<>() {
-            @Override
-            protected void configure() {
-                map().setPrescriptionNumber(source.getId());
-                map().setPrescriptionIssueDate(source.getPrescriptionIssueDate());
-                map().setPatientFullName(source.getPatient().getFullName());
-                map().setDoctorFullName(source.getDoctor().getFullName());
-                map().setDescription(source.getDescription());
-            }
-        };
-    }*/
 
     public Long addPrescription(Prescription prescription){
         prescriptionRepository.save(prescription);
@@ -65,9 +48,18 @@ public class PrescriptionService {
     }
 
 
+    public Prescription dispenseMedicine(Long id) {
 
+        Prescription prescriptionToDispenseMedicineFrom =
+                prescriptionRepository.findPrescriptionById(id).orElseThrow(() ->
+        new PrescriptionNotFoundException("Prescription with this id does not exist "));
+        if(prescriptionToDispenseMedicineFrom.isPrescriptionValid()) {
+            prescriptionToDispenseMedicineFrom.setMedicineDispenseDate(LocalDateTime.now());
+            prescriptionRepository.save(prescriptionToDispenseMedicineFrom);
+        }else{
+            System.out.println("Prescription not valid");
+        }
+        return prescriptionToDispenseMedicineFrom;
 
-
-
-
+    }
 }
