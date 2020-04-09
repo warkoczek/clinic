@@ -1,7 +1,6 @@
-package com.example.clinic.model;
+package com.example.clinic.model.dto.appointment;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 
 public class AppointmentDTO {

@@ -2,13 +2,14 @@ package com.example.clinic.service;
 
 import com.example.clinic.domain.Appointment;
 import com.example.clinic.domain.Doctor;
-import com.example.clinic.model.*;
+import com.example.clinic.model.dto.appointment.AppointmentDTO;
+import com.example.clinic.model.dto.appointment.AvailableAppointmentDTO;
+import com.example.clinic.model.dto.appointment.ReservedAppointmentDTO;
 import com.example.clinic.repository.AppointmentRepository;
 import com.example.clinic.repository.DoctorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;

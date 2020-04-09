@@ -2,8 +2,8 @@ package com.example.clinic.service;
 
 
 import com.example.clinic.domain.Appointment;
-import com.example.clinic.model.AppointmentDTO;
-import com.example.clinic.model.ReservedAppointmentDTO;
+import com.example.clinic.model.dto.appointment.AppointmentDTO;
+import com.example.clinic.model.dto.appointment.ReservedAppointmentDTO;
 import org.junit.Assert;
 
 import org.junit.jupiter.api.Test;

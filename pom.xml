@@ -51,6 +51,12 @@
             <version>4.4</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.vaadin/vaadin-grid-flow -->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-grid-flow</artifactId>
+            <version>5.0.0</version>
+        </dependency>
 
 
         <dependency>

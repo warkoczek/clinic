@@ -1,4 +1,4 @@
-package com.example.clinic.model;
+package com.example.clinic.model.dto.appointment;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
