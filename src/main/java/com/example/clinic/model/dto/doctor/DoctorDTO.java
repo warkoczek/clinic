@@ -1,4 +1,4 @@
-package com.example.clinic.model;
+package com.example.clinic.model.dto.doctor;
 
 
 import java.util.Objects;

@@ -1,13 +1,17 @@
 package com.example.clinic.service;
 
+import com.example.clinic.domain.Dispense;
 import com.example.clinic.domain.Prescription;
+import com.example.clinic.domain.PrescriptionType;
 import com.example.clinic.exception.PrescriptionNotFoundException;
-import com.example.clinic.model.PrescriptionDTO;
-import com.example.clinic.model.dto.PrescriptionDTOInterface;
+import com.example.clinic.model.dto.prescription.PrescriptionDTO;
+import com.example.clinic.model.dto.prescription.PrescriptionDTOInterface;
 import com.example.clinic.repository.PrescriptionRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -48,18 +52,38 @@ public class PrescriptionService {
     }
 
 
-    public Prescription dispenseMedicine(Long id) {
+    public Optional<Dispense> dispenseMedicine(Long id) {
 
-        Prescription prescriptionToDispenseMedicineFrom =
-                prescriptionRepository.findPrescriptionById(id).orElseThrow(() ->
-        new PrescriptionNotFoundException("Prescription with this id does not exist "));
-        if(prescriptionToDispenseMedicineFrom.isPrescriptionValid()) {
-            prescriptionToDispenseMedicineFrom.setMedicineDispenseDate(LocalDateTime.now());
-            prescriptionRepository.save(prescriptionToDispenseMedicineFrom);
-        }else{
-            System.out.println("Prescription not valid");
-        }
-        return prescriptionToDispenseMedicineFrom;
+        Prescription dispensablePrescription = prescriptionRepository.findPrescriptionById(id).orElseThrow(() ->
+                new PrescriptionNotFoundException("Prescription with this id does not exist"));
 
+       /* Optional<Prescription> prescription = prescriptionRepository.findPrescriptionById(id);
+        Prescription dispensablePrescription = prescription.get();*/
+
+        String message = "Dispensed";
+
+            if(dispensablePrescription.isPrescriptionValid() && dispensablePrescription.getPrescriptionType() == PrescriptionType.ONGOING){
+
+                 dispensablePrescription.setExpiryDate(dispensablePrescription.getExpiryDate().plusDays(60));
+                 Prescription updatedPrescription =  prescriptionRepository.save(dispensablePrescription);
+
+                return Optional.of(new Dispense(message));
+                        //Optional.of(PrescriptionDTOInterface.getTypeMap().map(updatedPrescription));
+
+            }else if(dispensablePrescription.isPrescriptionValid() && dispensablePrescription.getPrescriptionType() == PrescriptionType.DISPOSABLE){
+
+                dispensablePrescription.setExpiryDate(LocalDateTime.now());
+                Prescription updatedPrescription =  prescriptionRepository.save(dispensablePrescription);
+
+                return Optional.of(new Dispense(message));
+                 //Optional.of(PrescriptionDTOInterface.getTypeMap().map(updatedPrescription));
+
+            }else{
+                return Optional.of(new Dispense("Prescription invalid!!!"));
+                //Optional.empty();
+
+            }
     }
+
+
 }

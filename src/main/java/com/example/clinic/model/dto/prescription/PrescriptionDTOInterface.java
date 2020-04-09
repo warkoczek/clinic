@@ -1,7 +1,7 @@
-package com.example.clinic.model.dto;
+package com.example.clinic.model.dto.prescription;
 
 import com.example.clinic.domain.Prescription;
-import com.example.clinic.model.PrescriptionDTO;
+import com.example.clinic.model.dto.prescription.PrescriptionDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeMap;
@@ -20,11 +20,14 @@ public interface PrescriptionDTOInterface {
             @Override
             protected void configure() {
                 map().setPrescriptionNumber(source.getId());
-                map().setPrescriptionIssueDate(source.getPrescriptionIssueDate());
+                map().setPrescriptionIssueDate(source.getIssueDate());
+                map().setPrescriptionExpiryDate(source.getExpiryDate());
                 map().setPatientFullName(source.getPatient().getFullName());
                 map().setDoctorFullName(source.getDoctor().getFullName());
                 map().setDescription(source.getDescription());
             }
         };
     }
+
+
 }

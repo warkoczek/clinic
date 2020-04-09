@@ -1,4 +1,4 @@
-package com.example.clinic.model;
+package com.example.clinic.model.dto.prescription;
 
 import lombok.*;
 
@@ -13,7 +13,9 @@ public class PrescriptionDTO {
 
     private Long prescriptionNumber;
 
-    private LocalDateTime PrescriptionIssueDate;
+    private LocalDateTime prescriptionIssueDate;
+
+    private LocalDateTime prescriptionExpiryDate;
 
     private String patientFullName;
 

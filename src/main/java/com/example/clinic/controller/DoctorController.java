@@ -1,7 +1,7 @@
 package com.example.clinic.controller;
 
 import com.example.clinic.domain.Doctor;
-import com.example.clinic.model.DoctorDTO;
+import com.example.clinic.model.dto.doctor.DoctorDTO;
 import com.example.clinic.domain.Specialization;
 import com.example.clinic.service.DoctorService;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,5 @@
-package com.example.clinic.model;
+package com.example.clinic.model.dto.address;
 
-import javax.persistence.Entity;
 import java.util.Objects;
 
 

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -23,13 +24,12 @@ public class Prescription {
     @SequenceGenerator(name = "prescriptionSeq", sequenceName = "prescription_Seq", allocationSize = 1)
     private Long id;
 
-    private LocalDateTime prescriptionIssueDate;
+    private LocalDateTime issueDate;
 
-    private Long prescriptionValidity;
+    private LocalDateTime expiryDate;
 
-    private String isOngoing;
-
-    private LocalDateTime medicineDispenseDate;
+    @Enumerated(value = EnumType.STRING)
+    private PrescriptionType prescriptionType;
 
 
     @ManyToOne(targetEntity = Patient.class)
@@ -40,28 +40,29 @@ public class Prescription {
 
     private String description;
 
-    public Prescription(LocalDateTime prescriptionIssueDate, Long prescriptionValidity, String isOngoing
+    public Prescription(LocalDateTime issueDate, LocalDateTime expiryDate, PrescriptionType prescriptionType
             ,Patient patient, Doctor doctor, String description){
-        this.prescriptionIssueDate=prescriptionIssueDate;
-        this.prescriptionValidity=prescriptionValidity;
-        this.isOngoing=isOngoing;
+        this.issueDate=issueDate;
+        this.expiryDate=expiryDate;
+        this.prescriptionType=prescriptionType;
         this.patient=patient;
         this.doctor=doctor;
         this.description=description;
     }
 
-    public boolean isPrescriptionOngoing(String isOngoing){
-        return isOngoing.equalsIgnoreCase("yes");
-    }
+
     //if its less than 6months since IssueDate and medicineDispenseDate is null or is more than 6 months since lastDispenseDate for ongoing Prescription
     public boolean isPrescriptionValid(){
-        LocalDateTime expiryDate = getPrescriptionIssueDate().plusMonths(prescriptionValidity);
-        LocalDateTime nextDispenseDate = getMedicineDispenseDate().plusMonths(prescriptionValidity);
 
-        return (expiryDate.isAfter(LocalDateTime.now()) && getMedicineDispenseDate() == null)
-                || (nextDispenseDate.isBefore(LocalDateTime.now()) && isPrescriptionOngoing("yes"));
+            if(getPrescriptionExpiryDate().isPresent()){
+                LocalDateTime expiryDate = getPrescriptionExpiryDate().get();
+                return expiryDate.isAfter(LocalDateTime.now());
+            }
+            return false;
 
     }
 
-
+    public Optional<LocalDateTime> getPrescriptionExpiryDate(){
+        return Optional.ofNullable(expiryDate);
+    }
 }

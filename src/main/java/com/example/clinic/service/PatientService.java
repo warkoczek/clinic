@@ -3,7 +3,7 @@ package com.example.clinic.service;
 import com.example.clinic.exception.DuplicateUsernameException;
 import com.example.clinic.exception.PatientNotFoundException;
 import com.example.clinic.domain.Address;
-import com.example.clinic.model.AddressDTO;
+import com.example.clinic.model.dto.address.AddressDTO;
 import com.example.clinic.domain.Patient;
 import com.example.clinic.repository.PatientRepository;
 import org.modelmapper.ModelMapper;

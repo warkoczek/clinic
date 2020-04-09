@@ -46,10 +46,10 @@ insert into DOCTOR (username, password, first_Name, last_Name, role_id,specializ
 insert into DOCTOR (username, password, first_Name, last_Name, role_id,specialization, address_id, pii_id_Number, room_id)
 values ('mario', 'mmmww', 'Karol', 'Uginski', 2,'UROLOGIST', 7, '79041189930',4);
 
-insert into PRESCRIPTION (id, prescription_Issue_Date, prescription_Validity, is_Ongoing, medicine_Dispense_Date, patient_username, doctor_username, description) values (nextval('prescription_Seq'), '2020-02-03',6, 'yes', '2020-03-24', 'zyga', 'mario', 'take Ibuprofen pain killer twice a day');
-insert into PRESCRIPTION (id, prescription_Issue_Date, prescription_Validity, is_Ongoing,  patient_username, doctor_username, description) values (nextval('prescription_Seq'), '2020-02-27',6, 'yes', 'grek', 'krys', 'prostate');
-insert into PRESCRIPTION (id, prescription_Issue_Date, prescription_Validity, is_Ongoing, patient_username, doctor_username, description) values (nextval('prescription_Seq'), '2020-01-02',2, 'yes','grek', 'krys', 'cold');
-insert into PRESCRIPTION (id, prescription_Issue_Date, prescription_Validity, is_Ongoing,  patient_username, doctor_username, description) values (nextval('prescription_Seq'), '2020-01-02',2, 'no','juras', 'olek', 'sore throat');
+insert into PRESCRIPTION (id, Issue_Date, Expiry_Date, prescription_Type, patient_username, doctor_username, description) values (nextval('prescription_Seq'), '2020-02-03', '2020-08-03', 'ONGOING', 'zyga', 'mario', 'take Ibuprofen pain killer twice a day');
+insert into PRESCRIPTION (id, Issue_Date, Expiry_Date, prescription_Type, patient_username, doctor_username, description) values (nextval('prescription_Seq'), '2020-02-27', '2020-08-27', 'DISPOSABLE', 'grek', 'krys', 'prostate');
+insert into PRESCRIPTION (id, Issue_Date, Expiry_Date, prescription_Type, patient_username, doctor_username, description) values (nextval('prescription_Seq'), '2020-01-02', '2020-03-24', 'DISPOSABLE', 'grek', 'krys', 'cold');
+insert into PRESCRIPTION (id, Issue_Date, Expiry_Date, prescription_Type, patient_username, doctor_username, description) values (nextval('prescription_Seq'), '2020-01-02', '2020-04-24', 'DISPOSABLE', 'juras', 'olek', 'sore throat');
 
 
 insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, room_id, description) values (nextval('appointment_Seq'), 'zyga', 'mario', '2020-03-21 15:30:00',4,  'prostate control');

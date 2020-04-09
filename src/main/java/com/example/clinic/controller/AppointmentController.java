@@ -1,9 +1,9 @@
 package com.example.clinic.controller;
 
 import com.example.clinic.domain.Appointment;
-import com.example.clinic.model.AppointmentDTO;
-import com.example.clinic.model.AvailableAppointmentDTO;
-import com.example.clinic.model.ReservedAppointmentDTO;
+import com.example.clinic.model.dto.appointment.AppointmentDTO;
+import com.example.clinic.model.dto.appointment.AvailableAppointmentDTO;
+import com.example.clinic.model.dto.appointment.ReservedAppointmentDTO;
 import com.example.clinic.service.AppointmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
