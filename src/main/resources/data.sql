@@ -53,7 +53,8 @@ insert into PRESCRIPTION (id, Issue_Date, Expiry_Date, prescription_Type, patien
 
 
 insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, room_id, description) values (nextval('appointment_Seq'), 'zyga', 'mario', '2020-03-21 15:30:00',4,  'prostate control');
-insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, room_id, description) values (nextval('appointment_Seq'), 'grek', 'krys', '2020-03-21 15:00:00',3,  'prostate');
+insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, room_id, description) values (nextval('appointment_Seq'), 'grek', 'krys', '2020-03-22 15:00:00',3,  'prostate');
+insert into APPOINTMENT (id, patient_username, doctor_username, appointment_Date, room_id, description) values (nextval('appointment_Seq'), 'juras', 'krys', '2020-03-21 17:00:00',3,  'prostate');
 
 insert into APPOINTMENT (id, doctor_username, appointment_Date, room_id) values (nextval('appointment_Seq'), 'olek', '2020-06-04 14:00:00', 2);
 insert into APPOINTMENT (id, doctor_username, appointment_Date, room_id) values (nextval('appointment_Seq'), 'olek', '2020-06-04 14:30:00', 2);

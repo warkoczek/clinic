@@ -2,7 +2,7 @@ package com.example.clinic.service;
 
 
 import com.example.clinic.domain.Appointment;
-import com.example.clinic.model.dto.appointment.AppointmentDTO;
+import com.example.clinic.model.dto.appointment.AppointmentCreationDTO;
 import com.example.clinic.model.dto.appointment.ReservedAppointmentDTO;
 import org.junit.Assert;
 
@@ -29,7 +29,7 @@ class AppointmentServiceTest {
     private DoctorService doctorService;
 
     @Test
-    public void showAppointmentByIdShouldReturnAppointmentTime3ForId5(){
+    public void retrieveAppointmentByIdShouldReturnAppointmentTime15ForId5(){
 
         //given
         Long appointmentId = 5l;
@@ -43,11 +43,10 @@ class AppointmentServiceTest {
     }
 
     @Test
-    public void showAppointmentByIdShouldReturnIsEmptyTrueForAppointmentId100(){
+    public void retrieveAppointmentByIdShouldReturnIsEmptyTrueForAppointmentId100(){
 
         //given
         Long appointmentId = 100L;
-        boolean expected = true;
         //when
         Optional<Appointment> actualAppointment = sut.retrieveAppointmentById(appointmentId);
 
@@ -70,15 +69,13 @@ class AppointmentServiceTest {
                 Specialization.UROLOGIST, address, "+48500600540", "awar@wp.pl", room);
 
         */
-        AppointmentDTO appointmentDto = new AppointmentDTO(doctorUsername, LocalDateTime.of(2020,04,04,14,00,00),
+        AppointmentCreationDTO appointmentCreationDTO = new AppointmentCreationDTO(doctorUsername, LocalDateTime.of(2020,04,04,14,00,00),
                 LocalDateTime.of(2020,04,04,16,00,00), true, 30);
 
         int expectedListSize = 4;
 
-
         //when
-
-        int actualListSize = sut.convertToEntity(appointmentDto).size();
+        int actualListSize = sut.convertToEntity(appointmentCreationDTO).size();
 
         //then
         Assert.assertEquals(expectedListSize, actualListSize);
@@ -97,7 +94,7 @@ class AppointmentServiceTest {
     }*/
 
     @Test
-    void showAvailableAppointmentsByDoctorIdShouldReturnTwoAppointmentDatesForDoctorBogi() {
+    void retrieveAvailableAppointmentsByDoctorIdShouldReturnTwoAppointmentDatesForDoctorBogi() {
 
         //given
         String username = "bogi";

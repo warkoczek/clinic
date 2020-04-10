@@ -1,7 +1,7 @@
 package com.example.clinic.controller;
 
 import com.example.clinic.domain.Appointment;
-import com.example.clinic.model.dto.appointment.AppointmentDTO;
+import com.example.clinic.model.dto.appointment.AppointmentCreationDTO;
 import com.example.clinic.model.dto.appointment.AvailableAppointmentDTO;
 import com.example.clinic.model.dto.appointment.ReservedAppointmentDTO;
 import com.example.clinic.service.AppointmentService;
@@ -58,8 +58,8 @@ public class AppointmentController {
 
 
     @PostMapping(value = "/add", consumes = "application/json")
-    public List<Appointment> addAvailableAppointments(@RequestBody AppointmentDTO appointmentDto){
-        return appointmentService.addAvailableAppointments(appointmentDto);
+    public List<Appointment> addAvailableAppointments(@RequestBody AppointmentCreationDTO appointmentCreationDTO){
+        return appointmentService.addAvailableAppointments(appointmentCreationDTO);
     }
 
 
