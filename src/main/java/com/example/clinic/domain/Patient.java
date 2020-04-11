@@ -1,6 +1,8 @@
 package com.example.clinic.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,8 +24,10 @@ public class Patient {
     private Address address;
 
     @OneToOne(targetEntity = PII.class, cascade = CascadeType.ALL)
-    @JoinColumn(updatable = true)
     private PII pii;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Appointment> appointments = new ArrayList<>();
 
     public String getFullName(){
         return getFirstName() + " " +getLastName();
@@ -40,6 +44,18 @@ public class Patient {
         this.role=role;
         this.address=address;
         this.pii=pii;
+    }
+
+    public Patient(String username, String password, String firstName, String lastName, Role role, Address address, PII pii,
+                   List<Appointment> appointments){
+        this.username=username;
+        this.password=password;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.role=role;
+        this.address=address;
+        this.pii=pii;
+        this.appointments=appointments;
     }
 
     public String getUsername() {
@@ -98,6 +114,14 @@ public class Patient {
         this.pii = pii;
     }
 
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,11 +133,12 @@ public class Patient {
                 Objects.equals(lastName, patient.lastName) &&
                 Objects.equals(role, patient.role) &&
                 Objects.equals(address, patient.address) &&
-                Objects.equals(pii, patient.pii);
+                Objects.equals(pii, patient.pii) &&
+                Objects.equals(appointments, patient.appointments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, firstName, lastName, role, address, pii);
+        return Objects.hash(username, password, firstName, lastName, role, address, pii, appointments);
     }
 }

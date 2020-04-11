@@ -19,6 +19,10 @@ public interface ReservedAppointmentDTOInterface {
             @Override
             protected void configure() {
                 map().setAppointmentDate(source.getAppointmentDate());
+                map().setPatientFullName(source.getPatient().getFullName());
+                map().setDoctorFullName(source.getDoctor().getFullName());
+                map().setDoorNumber(source.getRoom().getDoorNumber());
+                map().setDescription(source.getDescription());
             }
         };
     }

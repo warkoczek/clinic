@@ -2,9 +2,12 @@ package com.example.clinic.service;
 
 import com.example.clinic.domain.Appointment;
 import com.example.clinic.domain.Doctor;
+import com.example.clinic.domain.Patient;
+import com.example.clinic.exception.AppointmentNotFoundException;
 import com.example.clinic.model.dto.appointment.*;
 import com.example.clinic.repository.AppointmentRepository;
 import com.example.clinic.repository.DoctorRepository;
+import com.example.clinic.repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
@@ -16,10 +19,12 @@ public class AppointmentService{
 
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;
+    private final PatientRepository patientRepository;
 
-    public AppointmentService(AppointmentRepository appointmentRepository, DoctorRepository doctorRepository) {
+    public AppointmentService(AppointmentRepository appointmentRepository, DoctorRepository doctorRepository, PatientRepository patientRepository) {
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository=doctorRepository;
+        this.patientRepository=patientRepository;
     }
 
     public List<Appointment> retrieveAllAppointments(){
@@ -54,7 +59,7 @@ public class AppointmentService{
 
     public List<ReservedAppointmentDTO> retrieveReservedAppointmentsByRoom(String doorNumber){
 
-        List<Appointment> appointments = appointmentRepository.findAppointmentsByRoom_DoorNumber(doorNumber);
+        List<Appointment> appointments = appointmentRepository.findAppointmentsByRoom_DoorNumberAndPatientIsNotNull(doorNumber);
         return appointments
                 .stream()
                 .map(appointment -> ReservedAppointmentDTOInterface.getTypeMap().map(appointment))
@@ -117,6 +122,22 @@ public class AppointmentService{
         return doctorRepository.findDoctorByUsername(username).get();
 
     }
+
+    //appointmenNumber is an appointment's id.
+    public ReservedAppointmentDTO bookAppointment(String patientUsername, Long appointmentId){
+
+        Optional<Patient> patient = patientRepository.findPatientByUsername(patientUsername);
+
+        Optional<Appointment> bookedAppointment = appointmentRepository.findAppointmentById(appointmentId).stream()
+                .findAny();
+        bookedAppointment.ifPresentOrElse(appointment -> appointment.setPatient(patient.get()), () -> {
+            throw new AppointmentNotFoundException("absent");
+        });
+        appointmentRepository.save(bookedAppointment.get());
+
+        return ReservedAppointmentDTOInterface.getTypeMap().map(bookedAppointment.get());
+    }
+
 
 
     public List<Appointment> postponeReservedAppointmentsByDoctorId(String username){

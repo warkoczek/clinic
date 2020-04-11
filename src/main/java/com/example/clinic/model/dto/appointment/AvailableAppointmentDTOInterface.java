@@ -20,7 +20,11 @@ public interface AvailableAppointmentDTOInterface {
         return new PropertyMap<>() {
             @Override
             protected void configure() {
+                map().setAppointmentNumber(source.getId());
                 map().setAppointmentDate(source.getAppointmentDate());
+                map().setDoctorFullName(source.getDoctor().getFullName());
+                map().setDoorNumber(source.getRoom().getDoorNumber());
+
             }
         };
     }

@@ -2,6 +2,7 @@ package com.example.clinic.service;
 
 
 import com.example.clinic.domain.Appointment;
+import com.example.clinic.domain.Patient;
 import com.example.clinic.model.dto.appointment.AppointmentCreationDTO;
 import com.example.clinic.model.dto.appointment.ReservedAppointmentDTO;
 import org.junit.Assert;
@@ -27,12 +28,16 @@ class AppointmentServiceTest {
     private AppointmentService sut;
     @Autowired
     private DoctorService doctorService;
+    @Autowired
+    private PatientService patientService;
+
+
 
     @Test
-    public void retrieveAppointmentByIdShouldReturnAppointmentTime15ForId5(){
+    public void retrieveAppointmentByIdShouldReturnAppointmentTime15ForId6(){
 
         //given
-        Long appointmentId = 5l;
+        Long appointmentId = 6L;
         LocalTime expectedAppointmentTime = LocalTime.of(15,00,00);
 
         //when
@@ -58,7 +63,7 @@ class AppointmentServiceTest {
 
 
    @Test
-    public void convertToEntityListShouldReturn4AppointmentsForWorkingHours14To16() {
+    public void convertToAppointmentListShouldReturn4AppointmentsForWorkingHours14To16() {
 
         //given
        String doctorUsername = doctorService.retrieveDoctorByUsername("mario").get().getUsername();
@@ -75,7 +80,7 @@ class AppointmentServiceTest {
         int expectedListSize = 4;
 
         //when
-        int actualListSize = sut.convertToEntity(appointmentCreationDTO).size();
+        int actualListSize = sut.convertToAppointmentList(appointmentCreationDTO).size();
 
         //then
         Assert.assertEquals(expectedListSize, actualListSize);
@@ -116,13 +121,13 @@ class AppointmentServiceTest {
         //given
             String username = "mario";
             int expectedListSize = 1;
-            String expectedPatientLastName = "Zygmunt";
+            String expectedPatientLastName = "Zygmunt Wiburski";
         //when
         List<ReservedAppointmentDTO> actualReservedAppointmentDTOList = sut.retrieveReservedAppointmentsByDoctorId(username);
 
         //then
         Assert.assertEquals(expectedListSize, actualReservedAppointmentDTOList.size());
-        Assert.assertEquals(expectedPatientLastName,actualReservedAppointmentDTOList.get(0).getPatientFirstName());
+        Assert.assertEquals(expectedPatientLastName,actualReservedAppointmentDTOList.get(0).getPatientFullName());
     }
 
     @Test
@@ -132,7 +137,7 @@ class AppointmentServiceTest {
         String expectedDoorNumber = "4";
 
         //when
-        String actualDoorNumber = sut.retrieveReservedAppointmentsByDoctorId(username).get(0).getRoomDoorNumber();
+        String actualDoorNumber = sut.retrieveReservedAppointmentsByDoctorId(username).get(0).getDoorNumber();
         //then
         Assert.assertEquals(expectedDoorNumber, actualDoorNumber);
     }
@@ -161,5 +166,27 @@ class AppointmentServiceTest {
         Assert.assertEquals(expectedPostponedDate, actualPostponedReservedAppointmentsByDoctorId.get(0).getAppointmentDate());
 
     }
+
+    @Test
+     void bookAppointmentShouldReturnPatientFullNameJerzyMolendaForReservedAppointmentWithId7(){
+
+        //given
+        String patientUsername = "juras";
+
+        Long appointmentId = 7L;
+        String expectedPatientFullName = "Jerzy Molenda";
+
+        //when
+        sut.bookAppointment(patientUsername,appointmentId);
+
+        Optional<Appointment> appointmentOptional = sut.retrieveAppointmentById(7L);
+        String actualPatientFullName = appointmentOptional.get().getPatient().getFullName();
+
+        //then
+        Assert.assertEquals(expectedPatientFullName, actualPatientFullName);
+
+
+    }
+
 
 }
