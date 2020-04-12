@@ -123,23 +123,6 @@ public class AppointmentService{
 
     }
 
-    //appointmenNumber is an appointment's id.
-    public ReservedAppointmentDTO bookAppointment(String patientUsername, Long appointmentId){
-
-        Optional<Patient> patient = patientRepository.findPatientByUsername(patientUsername);
-
-        Optional<Appointment> bookedAppointment = appointmentRepository.findAppointmentById(appointmentId).stream()
-                .findAny();
-        bookedAppointment.ifPresentOrElse(appointment -> appointment.setPatient(patient.get()), () -> {
-            throw new AppointmentNotFoundException("absent");
-        });
-        appointmentRepository.save(bookedAppointment.get());
-
-        return ReservedAppointmentDTOInterface.getTypeMap().map(bookedAppointment.get());
-    }
-
-
-
     public List<Appointment> postponeReservedAppointmentsByDoctorId(String username){
 
         List<Appointment> postponedAppointments = new ArrayList<>();

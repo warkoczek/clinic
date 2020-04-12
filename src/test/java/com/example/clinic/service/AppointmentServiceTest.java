@@ -28,9 +28,6 @@ class AppointmentServiceTest {
     private AppointmentService sut;
     @Autowired
     private DoctorService doctorService;
-    @Autowired
-    private PatientService patientService;
-
 
 
     @Test
@@ -167,26 +164,7 @@ class AppointmentServiceTest {
 
     }
 
-    @Test
-     void bookAppointmentShouldReturnPatientFullNameJerzyMolendaForReservedAppointmentWithId7(){
 
-        //given
-        String patientUsername = "juras";
-
-        Long appointmentId = 7L;
-        String expectedPatientFullName = "Jerzy Molenda";
-
-        //when
-        sut.bookAppointment(patientUsername,appointmentId);
-
-        Optional<Appointment> appointmentOptional = sut.retrieveAppointmentById(7L);
-        String actualPatientFullName = appointmentOptional.get().getPatient().getFullName();
-
-        //then
-        Assert.assertEquals(expectedPatientFullName, actualPatientFullName);
-
-
-    }
 
 
 }
