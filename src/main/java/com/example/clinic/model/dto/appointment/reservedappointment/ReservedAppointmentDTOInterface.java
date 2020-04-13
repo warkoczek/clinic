@@ -1,6 +1,7 @@
-package com.example.clinic.model.dto.appointment;
+package com.example.clinic.model.dto.appointment.reservedappointment;
 
 import com.example.clinic.domain.Appointment;
+import com.example.clinic.model.dto.appointment.reservedappointment.ReservedAppointmentDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.TypeMap;

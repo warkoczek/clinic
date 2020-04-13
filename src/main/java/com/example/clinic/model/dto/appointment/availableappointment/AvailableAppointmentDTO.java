@@ -1,4 +1,4 @@
-package com.example.clinic.model.dto.appointment;
+package com.example.clinic.model.dto.appointment.availableappointment;
 
 import lombok.NoArgsConstructor;
 

@@ -2,9 +2,11 @@ package com.example.clinic.service;
 
 import com.example.clinic.domain.Appointment;
 import com.example.clinic.domain.Doctor;
-import com.example.clinic.domain.Patient;
-import com.example.clinic.exception.AppointmentNotFoundException;
 import com.example.clinic.model.dto.appointment.*;
+import com.example.clinic.model.dto.appointment.availableappointment.AvailableAppointmentDTO;
+import com.example.clinic.model.dto.appointment.availableappointment.AvailableAppointmentDTOInterface;
+import com.example.clinic.model.dto.appointment.reservedappointment.ReservedAppointmentDTO;
+import com.example.clinic.model.dto.appointment.reservedappointment.ReservedAppointmentDTOInterface;
 import com.example.clinic.repository.AppointmentRepository;
 import com.example.clinic.repository.DoctorRepository;
 import com.example.clinic.repository.PatientRepository;
@@ -34,6 +36,10 @@ public class AppointmentService{
     public Optional<Appointment> retrieveAppointmentById(Long appointmentId){
 
         return appointmentRepository.findAppointmentById(appointmentId);
+    }
+
+    public Optional<Appointment> retrieveAvailableAppointmentById(Long appointmentId){
+        return appointmentRepository.findAppointmentByIdAndPatientIsNull(appointmentId);
     }
 
     public List<AvailableAppointmentDTO> retrieveAvailableAppointmentsByDoctorId(String username){
@@ -67,7 +73,9 @@ public class AppointmentService{
                 .collect((Collectors.toList()));
     }
 
-
+    public Appointment addBookedAppointment(Appointment appointment){
+        return appointmentRepository.save(appointment);
+    }
     //allows Doctor adding available appointments
     public List<Appointment> addAvailableAppointments(AppointmentCreationDTO dto){
 

@@ -1,6 +1,7 @@
 package com.example.clinic.service;
 
 import com.example.clinic.domain.Appointment;
+import com.example.clinic.model.dto.appointment.ReservedAppointmentCreationDTO;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,13 +28,15 @@ class BookingServiceTest {
     void bookAppointmentShouldReturnPatientFullNameJerzyMolendaForReservedAppointmentWithId7(){
 
         //given
-        String patientUsername = "juras";
-
         Long appointmentId = 7L;
+        String patientUsername = "juras";
+        String description = "flu";
+        ReservedAppointmentCreationDTO dto = new ReservedAppointmentCreationDTO(appointmentId, patientUsername, description);
+
         String expectedPatientFullName = "Jerzy Molenda";
 
         //when
-        sut.bookAppointment(patientUsername,appointmentId);
+        sut.bookAppointment(dto);
 
         Optional<Appointment> appointmentOptional = appointmentService.retrieveAppointmentById(7L);
         String actualPatientFullName = appointmentOptional.get().getPatient().getFullName();
