@@ -1,9 +1,9 @@
 package com.example.clinic.controller;
 
 import com.example.clinic.domain.Appointment;
-import com.example.clinic.model.dto.appointment.AppointmentDTO;
-import com.example.clinic.model.dto.appointment.AvailableAppointmentDTO;
-import com.example.clinic.model.dto.appointment.ReservedAppointmentDTO;
+import com.example.clinic.model.dto.appointment.AppointmentCreationDTO;
+import com.example.clinic.model.dto.appointment.availableappointment.AvailableAppointmentDTO;
+import com.example.clinic.model.dto.appointment.reservedappointment.ReservedAppointmentDTO;
 import com.example.clinic.service.AppointmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +51,9 @@ public class AppointmentController {
         return appointmentService.retrieveReservedAppointmentsByRoom(doorNumber);
     }
 
+
+
+
     @PutMapping(value = "/postpone/reserved/doctor", produces = "application/json")
     public List<Appointment> showPostponedReservedAppointmentsByDoctorId(@RequestParam String username){
         return appointmentService.postponeReservedAppointmentsByDoctorId(username);
@@ -58,8 +61,8 @@ public class AppointmentController {
 
 
     @PostMapping(value = "/add", consumes = "application/json")
-    public List<Appointment> addAvailableAppointments(@RequestBody AppointmentDTO appointmentDto){
-        return appointmentService.addAvailableAppointments(appointmentDto);
+    public List<Appointment> addAvailableAppointments(@RequestBody AppointmentCreationDTO appointmentCreationDTO){
+        return appointmentService.addAvailableAppointments(appointmentCreationDTO);
     }
 
 

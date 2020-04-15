@@ -1,7 +1,7 @@
 package com.example.clinic.domain;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Patient {
@@ -22,8 +22,8 @@ public class Patient {
     private Address address;
 
     @OneToOne(targetEntity = PII.class, cascade = CascadeType.ALL)
-    @JoinColumn(updatable = true)
     private PII pii;
+
 
     public String getFullName(){
         return getFirstName() + " " +getLastName();
@@ -98,6 +98,8 @@ public class Patient {
         this.pii = pii;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,6 +112,7 @@ public class Patient {
                 Objects.equals(role, patient.role) &&
                 Objects.equals(address, patient.address) &&
                 Objects.equals(pii, patient.pii);
+
     }
 
     @Override

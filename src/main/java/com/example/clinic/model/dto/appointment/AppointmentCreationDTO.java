@@ -1,27 +1,32 @@
 package com.example.clinic.model.dto.appointment;
 
+import com.example.clinic.domain.Appointment;
+import com.example.clinic.domain.Doctor;
+import com.example.clinic.repository.DoctorRepository;
+
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class AppointmentDTO {
+public class AppointmentCreationDTO {
 
     private String doctorUsername;
 
     private LocalDateTime from;
 
-    private LocalDateTime unTill;
+    private LocalDateTime to;
 
     private boolean isCyclic;
 
     private int duration;
 
-    public AppointmentDTO() {
-    }
 
-    public AppointmentDTO(String doctorUsername, LocalDateTime from, LocalDateTime unTill, boolean isCyclic,  int duration) {
+    public AppointmentCreationDTO(String doctorUsername, LocalDateTime from, LocalDateTime to, boolean isCyclic, int duration) {
         this.doctorUsername = doctorUsername;
         this.from = from;
-        this.unTill = unTill;
+        this.to = to;
         this.isCyclic = isCyclic;
         this.duration = duration;
     }
@@ -42,12 +47,12 @@ public class AppointmentDTO {
         this.from = from;
     }
 
-    public LocalDateTime getUnTill() {
-        return unTill;
+    public LocalDateTime getTo() {
+        return to;
     }
 
-    public void setUnTill(LocalDateTime unTill) {
-        this.unTill = unTill;
+    public void setTo(LocalDateTime to) {
+        this.to = to;
     }
 
     public int getDuration() {
@@ -70,16 +75,16 @@ public class AppointmentDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AppointmentDTO that = (AppointmentDTO) o;
+        AppointmentCreationDTO that = (AppointmentCreationDTO) o;
         return isCyclic == that.isCyclic &&
                 duration == that.duration &&
                 Objects.equals(doctorUsername, that.doctorUsername) &&
                 Objects.equals(from, that.from) &&
-                Objects.equals(unTill, that.unTill);
+                Objects.equals(to, that.to);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(doctorUsername, from, unTill, isCyclic, duration);
+        return Objects.hash(doctorUsername, from, to, isCyclic, duration);
     }
 }

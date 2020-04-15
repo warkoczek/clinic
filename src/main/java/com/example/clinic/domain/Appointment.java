@@ -27,7 +27,10 @@ public class Appointment {
 
     private String description;
 
-
+    public void setPatientAndDescription(Patient patient, String description){
+        this.patient=patient;
+        this.description=description;
+    }
 
     public Appointment() {
     }
