@@ -5,14 +5,14 @@ insert into ROLE (id, authority) values (nextval('role_seq'), 'RECEPTIONIST');
 insert into ROLE (id, authority) values (nextval('role_seq'), 'ADMIN');
 
 
-insert into ADDRESS (id, street, house_Number, post_Code, city, country)values (nextval('address_seq'), 'Tonowska', '11', '88400', 'Zerniki', 'Polen');
-insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Gdańska', '12', '20300', 'Bydgoszcz', 'Polen');
-insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Katowicka', '11', '30400', 'Gniezno', 'Polen');
+insert into ADDRESS (id, street, house_Number, post_Code, city)values (nextval('address_seq'), 'Tonowska', '11', '88400', 'Zerniki');
+insert into ADDRESS (id, street, house_Number, post_Code, city) values (nextval('address_seq'), 'Gdańska', '12', '20300', 'Bydgoszcz');
+insert into ADDRESS (id, street, house_Number, post_Code, city) values (nextval('address_seq'), 'Katowicka', '11', '30400', 'Gniezno');
 
-insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Wirusowa', '4', '30567', 'Leszno', 'Polen');
-insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Schtrasse', '2', '33400', 'Hamburg', 'Deutschland');
-insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Poznańska', '11', '30400', 'Katowice', 'Polen');
-insert into ADDRESS (id, street, house_Number, post_Code, city, country) values (nextval('address_seq'), 'Orzechowa', '5', '88560', 'Wroclaw', 'Polen');
+insert into ADDRESS (id, street, house_Number, post_Code, city) values (nextval('address_seq'), 'Wirusowa', '4', '30567', 'Leszno');
+insert into ADDRESS (id, street, house_Number, post_Code, city) values (nextval('address_seq'), 'Schtrasse', '2', '33400', 'Hamburg');
+insert into ADDRESS (id, street, house_Number, post_Code, city) values (nextval('address_seq'), 'Poznańska', '11', '30400', 'Katowice');
+insert into ADDRESS (id, street, house_Number, post_Code, city) values (nextval('address_seq'), 'Orzechowa', '5', '88560', 'Wroclaw');
 
 insert into PII (id_Number, phone_Number, email_Address) values ('80121289900', '+48600435690', 'jurek.molenda@wp.pl');
 insert into PII (id_Number, phone_Number, email_Address) values ('60111282930', '+48543678982', 'grzegorz.waliszewski@wp.pl');

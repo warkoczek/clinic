@@ -2,12 +2,12 @@ package com.example.clinic.repository;
 
 import com.example.clinic.domain.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import java.util.Optional;
 
+@Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
-    Set<Address> findAllByCityAndPostCodeAndStreet(String city, String postCode, String street);
-
-
+    Optional<Address> findAddressById(Long id);
 }
