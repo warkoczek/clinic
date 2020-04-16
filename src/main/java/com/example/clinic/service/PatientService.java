@@ -5,6 +5,8 @@ import com.example.clinic.exception.PatientNotFoundException;
 import com.example.clinic.domain.Address;
 import com.example.clinic.model.dto.address.AddressDTO;
 import com.example.clinic.domain.Patient;
+import com.example.clinic.repository.AddressRepository;
+import com.example.clinic.repository.PIIRepository;
 import com.example.clinic.repository.PatientRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,6 @@ public class PatientService  {
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
     }
-
 
     public List<Patient> retrieveAllPatients(){
         return patientRepository.findAll();

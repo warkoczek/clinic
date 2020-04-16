@@ -2,10 +2,7 @@ package com.example.clinic.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -21,17 +18,16 @@ public class Address {
     private String houseNumber;
     private String postCode;
     private String city;
-    private String country;
+
 
     public Address() {
     }
 
-    public Address(String street, String houseNumber, String postCode, String city, String country){
+    public Address(String street, String houseNumber, String postCode, String city){
         this.street=street;
         this.houseNumber=houseNumber;
         this.postCode=postCode;
         this.city=city;
-        this.country=country;
     }
 
     public Long getId() {
@@ -74,14 +70,6 @@ public class Address {
         this.city = city;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,12 +79,12 @@ public class Address {
                 Objects.equals(street, address.street) &&
                 Objects.equals(houseNumber, address.houseNumber) &&
                 Objects.equals(postCode, address.postCode) &&
-                Objects.equals(city, address.city) &&
-                Objects.equals(country, address.country);
+                Objects.equals(city, address.city);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, street, houseNumber, postCode, city, country);
+        return Objects.hash(id, street, houseNumber, postCode, city);
     }
 }

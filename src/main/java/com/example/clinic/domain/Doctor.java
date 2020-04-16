@@ -26,7 +26,7 @@ public class Doctor {
     @Enumerated(value = EnumType.STRING)
     private Specialization specialization;
 
-    @OneToOne(targetEntity = Address.class, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Address address;
 
     @OneToOne(targetEntity = PII.class, cascade = CascadeType.ALL)
